@@ -1,0 +1,32 @@
+page-tuto {
+  .logo {
+    width: 55%;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+
+  .title {
+    color: #444444;
+  }
+
+  .image {
+    height: 230px;
+    width: auto;
+    margin: 0 auto;
+  }
+
+  .description {
+    p {
+      color: #545454;
+    }
+  }
+
+  button[ion-button] {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    z-index: 1;
+  }
+}

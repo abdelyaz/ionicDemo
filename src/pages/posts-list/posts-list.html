@@ -1,0 +1,80 @@
+<loading *ngIf="requestInProgress"></loading>
+
+<ion-header>
+  <ion-navbar no-border-bottom>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      List of posts by categories
+    </ion-title>
+
+    <button ion-button icon-only (click)="search($event)">
+      <ion-icon name="search"></ion-icon>
+    </button>
+
+  </ion-navbar>
+
+  <ion-toolbar no-border-top>
+    <ion-segment *ngIf="listOfCategories" [(ngModel)]="category">
+      <ion-segment-button *ngFor="let item of listOfCategories" value="{{ item.title.toLowerCase() }}">
+        {{ item.title }}
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div [ngSwitch]="category" *ngFor="let cat of listOfCategories">
+    <ion-list *ngSwitchCase="cat.title.toLowerCase()">
+      <!-- <ion-item *ngFor="let item of getPostWithCategory(cat.title)">
+        <ion-thumbnail item-start>
+          <img src="{{ item.img }}">
+        </ion-thumbnail>
+        <h2>{{ item.title }}</h2>
+      </ion-item> -->
+
+      <ion-card *ngFor="let item of getPostWithCategory(cat.title)">
+
+        <ion-item>
+          <ion-avatar item-start>
+            <img src="{{ item.avatar }}">
+          </ion-avatar>
+          <h2>{{ item.title }}</h2>
+          <p>{{ item.date }}</p>
+        </ion-item>
+
+        <img src="{{ item.img }}">
+
+        <ion-card-content>
+          <p>{{ item.description }}</p>
+        </ion-card-content>
+
+        <ion-row>
+          <ion-col>
+            <button ion-button icon-start clear small (click)="addToFavorites($event, item)">
+              <ion-icon name="{{ icon }}"></ion-icon>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button icon-start clear small>
+              <ion-icon name="text"></ion-icon>
+              <div>4 Comments</div>
+            </button>
+          </ion-col>
+          <ion-col align-self-center text-center>
+            <ion-note>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star-half"></ion-icon>
+              <ion-icon name="star-outline"></ion-icon>
+            </ion-note>
+          </ion-col>
+        </ion-row>
+
+      </ion-card>
+
+    </ion-list>
+  </div>
+</ion-content>

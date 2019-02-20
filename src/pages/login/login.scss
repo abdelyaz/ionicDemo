@@ -1,0 +1,66 @@
+@import '../../theme/variables';
+
+page-login {
+  .logo {
+    width: 50%;
+    margin: 0 auto;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+    .title {
+      font-size: 20px;
+      color: #6eb737;
+      text-shadow: 0 0 3px rgba(22, 20, 20, 0.20);
+    }
+  }
+
+  .scroll-content {
+    display: flex;
+    align-items: center;
+    padding-bottom: 0 !important;
+  }
+
+  .username,
+  .password {
+    ion-icon {
+      color: map-get($colors, primary);
+      font-size: 34px;
+    }
+
+    display: flex;
+    align-items: flex-end;
+    margin: 45px 0;
+  }
+
+  .item-input .label-md {
+    color: map-get($colors, primary);
+    font-size: 14px;
+    font-weight: lighter;
+  }
+
+  .item-md.item-block .item-inner {
+    border-color: map-get($colors, primary);
+  }
+
+  .btn-login {}
+
+  .forgot-pswd,
+  .sign-up {
+    color: map-get($colors, primary);
+    font-weight: lighter;
+    letter-spacing: 1px;
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+  .sign-up {
+    a {
+      font-weight: bold;
+    }
+  }
+}

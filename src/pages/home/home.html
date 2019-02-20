@@ -1,3 +1,5 @@
+<loading *ngIf="requestInProgress"></loading>
+
 <ion-header>
   <ion-navbar>
     <button ion-button menuToggle>
@@ -8,11 +10,25 @@
 </ion-header>
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+  <ion-slides pager *ngIf="listOfPosts">
+    <ion-slide *ngFor="let item of listOfPosts">
+      <ion-card>
+        <ion-item>
+          <ion-avatar item-start>
+            <img src="{{ item.avatar }}">
+          </ion-avatar>
+          <h2>{{ item.title }}</h2>
+          <p>{{ item.date }}</p>
+        </ion-item>
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+        <img src="{{ item.img }}">
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+        <ion-card-content>
+          <p>{{ item.description }}</p>
+        </ion-card-content>
+
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
+
 </ion-content>
