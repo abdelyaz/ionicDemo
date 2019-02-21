@@ -3,12 +3,15 @@ import {
   IonicPage,
   NavController,
   NavParams,
-  ToastController
+  ToastController,
+  Refresher,
+  ModalController
 } from "ionic-angular";
 import { CategoryProvider } from "../../providers/category/category";
 import { Category } from "../../models/category";
 import { Post } from "../../models/post";
 import { PostProvider } from "../../providers/post/post";
+import { CommentPage } from "../comment/comment";
 
 /**
  * Generated class for the PostsListPage page.
@@ -30,13 +33,15 @@ export class PostsListPage {
   public allPosts = [];
   public isLiked = false;
   public icon: string = "heart-outline";
+  public cleanInputSearchbar: string = "";
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public categoryProvider: CategoryProvider,
     public postProvider: PostProvider,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    public modalCtrl: ModalController
   ) {}
 
   ionViewDidLoad() {
@@ -67,13 +72,7 @@ export class PostsListPage {
       .getPosts()
       .then(posts => {
         this.listOfPosts = posts;
-        if (this.listOfPosts) {
-          this.listOfPosts.map(data => {
-            this.allPosts.push(data);
-          });
-        }
-        // this.getPostWithCategory("Technology");
-
+        this.initializePosts();
         this.requestInProgress = false;
       })
       .catch(error => {
@@ -96,11 +95,50 @@ export class PostsListPage {
     return array;
   }
 
+  // Methode to Initilize liste of posts.
+  public initializePosts() {
+    this.allPosts = this.listOfPosts;
+  }
+
+  // Methode search by post's title OR description.
+  public search(e) {
+    this.initializePosts();
+
+    const keyword = e.target.value;
+
+    if (keyword && keyword.trim() != "") {
+      this.allPosts = this.allPosts.filter(item => {
+        return (
+          item.title.toLowerCase().indexOf(keyword.toLowerCase()) > -1 ||
+          item.description.toLowerCase().indexOf(keyword.toLowerCase()) > -1
+        );
+      });
+    }
+  }
+
+  // Methode to refresh and reload post by pulling donw the screen.
+  public pullToRefresh(refresher: Refresher) {
+    // Clean searchbar
+    this.cleanInputSearchbar = "";
+
+    this.postProvider
+      .getPosts()
+      .then(posts => {
+        this.allPosts = posts;
+        refresher.complete();
+        this.requestInProgress = false;
+        console.log("Refreshed successfully !!");
+      })
+      .catch(error => {
+        console.log("Error on refreshing !!");
+        console.error(error);
+        refresher.complete();
+      });
+  }
+
   // Methode to add Post to favorites.
   // TODO: add a post to favorites and save it in local storage
   public addToFavorites(e, post) {
-    console.log();
-
     // Reverse booleane value
     this.isLiked = !this.isLiked;
 
@@ -122,8 +160,16 @@ export class PostsListPage {
     return this.isLiked;
   }
 
-  public search(e) {
-    console.log(e);
-    console.log("=========");
+  // Methode to clean Searchbar input
+  public cleanSearch() {
+    console.log("clean this shit !");
+    this.cleanInputSearchbar = "";
+    this.initializePosts();
+  }
+
+  // Methode to open Comments in modal.
+  public openModal() {
+    let profileModal = this.modalCtrl.create(CommentPage);
+    profileModal.present();
   }
 }

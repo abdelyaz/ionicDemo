@@ -1,3 +1,4 @@
+/** Modules */
 import { CommonModule } from "@angular/common";
 import { NgModule, ErrorHandler } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
@@ -6,6 +7,7 @@ import { IonicModule, IonicApp, IonicErrorHandler } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 
+/** Pages */
 import { MyApp } from "./app.component";
 import { HomePage } from "../pages/home/home";
 import { AboutPage } from "../pages/about/about";
@@ -15,13 +17,16 @@ import { ListPage } from "../pages/list/list";
 import { TutoPage } from "../pages/tuto/tuto";
 import { PostsListPage } from "../pages/posts-list/posts-list";
 
+/** Providers */
 import { NetworkProvider } from "../providers/network/network";
 import { MapperProvider } from "../providers/mapper/mapper";
 import { AuthenticationProvider } from "../providers/authentication/authentication";
 import { PostProvider } from "../providers/post/post";
+import { CategoryProvider } from "../providers/category/category";
 
+/** Components */
 import { ComponentsModule } from "../components/components.module";
-import { CategoryProvider } from '../providers/category/category';
+import { CommentPage } from "../pages/comment/comment";
 
 @NgModule({
   declarations: [
@@ -32,7 +37,8 @@ import { CategoryProvider } from '../providers/category/category';
     ContactPage,
     LoginPage,
     TutoPage,
-    PostsListPage
+    PostsListPage,
+    CommentPage
   ],
   imports: [
     CommonModule,
@@ -43,13 +49,14 @@ import { CategoryProvider } from '../providers/category/category';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    HomePage,
-    ListPage,
-    AboutPage,
-    ContactPage,
-    LoginPage,
+    // MyApp,
+    // HomePage,
+    // ListPage,
+    // AboutPage,
+    // ContactPage,
+    // LoginPage,
     TutoPage,
+    CommentPage,
     PostsListPage
   ],
   providers: [

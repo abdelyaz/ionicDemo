@@ -24,7 +24,6 @@ export class HomePage {
       .getPosts()
       .then(posts => {
         this.listOfPosts = posts;
-        console.log("this.listOfPosts", this.listOfPosts);
         this.requestInProgress = false;
       })
       .catch(error => {

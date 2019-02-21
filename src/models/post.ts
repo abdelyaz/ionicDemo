@@ -1,5 +1,6 @@
 import * as moment from "moment";
 import { Category } from "./category";
+import { Comment } from "./coment";
 
 export class Post {
   public _id: number = null;
@@ -8,9 +9,10 @@ export class Post {
   public _isFavorite: boolean = null;
   public _avatar: string = null;
   public _date: moment.Moment = null;
-  public _description: string = null;
-  public _img: string = null;
   public _title: string = null;
+  public _img: string = null;
+  public _description: string = null;
+  public _comments: Array<Comment> = null;
 
   /**
    * Getter id
@@ -85,6 +87,14 @@ export class Post {
   }
 
   /**
+   * Getter comments
+   * @return {Array<Comment> }
+   */
+  public get comments(): Array<Comment> {
+    return this._comments;
+  }
+
+  /**
    * Setter id
    * @param {number } value
    */
@@ -154,5 +164,13 @@ export class Post {
    */
   public set date(value: moment.Moment) {
     this._date = value;
+  }
+
+  /**
+   * Setter comments
+   * @param {Array<Comment> } value
+   */
+  public set comments(value: Array<Comment>) {
+    this._comments = value;
   }
 }

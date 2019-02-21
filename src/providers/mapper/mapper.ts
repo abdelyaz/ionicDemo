@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Post } from "../../models/post";
 import { Category } from "../../models/category";
+import { Comment } from "../../models/coment";
 
 /*
   Generated class for the MapperProvider provider.
@@ -29,7 +30,7 @@ export class MapperProvider {
       post.id = postJson["id"] ? postJson["id"] : null;
       post.author = postJson["author"] ? postJson["author"] : null;
       post.category = postJson["category"] ? postJson["category"] : null;
-      post.isFavorite = postJson["isFavorite"] ? postJson["isFavorite"] : true;
+      post.isFavorite = postJson["isFavorite"] ? postJson["isFavorite"] : false;
       post.description = postJson["description"]
         ? postJson["description"]
         : null;
@@ -37,6 +38,9 @@ export class MapperProvider {
       post.title = postJson["title"] ? postJson["title"] : null;
       post.avatar = postJson["avatar"] ? postJson["avatar"] : null;
       post.date = postJson["date"] ? postJson["date"] : null;
+      post.comments = postJson["comments"]
+        ? this._mapJsonToComments(postJson["comments"])
+        : null;
 
       return post;
     } else {
@@ -62,6 +66,33 @@ export class MapperProvider {
       category.title = categoryJson["title"] ? categoryJson["title"] : null;
 
       return category;
+    } else {
+      return null;
+    }
+  }
+
+  /**
+   * Mappers Comment
+   * @param commentJson
+   * @param arrayOfComments
+   */
+
+  public _mapJsonToComments(arrayOfComments): Array<Comment> {
+    return arrayOfComments.map(comment => this._mapJsonToComment(comment));
+  }
+
+  public _mapJsonToComment(commentJson): Comment {
+    if (commentJson) {
+      const comment = new Comment();
+
+      comment.id = commentJson["id"] ? commentJson["id"] : null;
+      comment.author = commentJson["author"] ? commentJson["author"] : null;
+      comment.comment = commentJson["comment"] ? commentJson["comment"] : null;
+      comment.date_time = commentJson["date_time"]
+        ? commentJson["date_time"]
+        : null;
+
+      return comment;
     } else {
       return null;
     }

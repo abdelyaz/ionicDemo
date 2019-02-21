@@ -6,13 +6,17 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>
-      List of posts by categories
+      List of posts
     </ion-title>
 
-    <button ion-button icon-only (click)="search($event)">
-      <ion-icon name="search"></ion-icon>
-    </button>
-
+    <ion-fab right>
+      <button ion-fab mini (click)="cleanSearch()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+      <ion-fab-list side="left">
+        <ion-searchbar (ionInput)="search($event)" [(ngModel)]="cleanInputSearchbar"></ion-searchbar>
+      </ion-fab-list>
+    </ion-fab>
   </ion-navbar>
 
   <ion-toolbar no-border-top>
@@ -25,39 +29,37 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher (ionRefresh)="pullToRefresh($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
   <div [ngSwitch]="category" *ngFor="let cat of listOfCategories">
     <ion-list *ngSwitchCase="cat.title.toLowerCase()">
-      <!-- <ion-item *ngFor="let item of getPostWithCategory(cat.title)">
-        <ion-thumbnail item-start>
-          <img src="{{ item.img }}">
-        </ion-thumbnail>
-        <h2>{{ item.title }}</h2>
-      </ion-item> -->
-
-      <ion-card *ngFor="let item of getPostWithCategory(cat.title)">
+      <ion-card *ngFor="let post of getPostWithCategory(cat.title)">
 
         <ion-item>
           <ion-avatar item-start>
-            <img src="{{ item.avatar }}">
+            <img src="{{ post.avatar }}">
           </ion-avatar>
-          <h2>{{ item.title }}</h2>
-          <p>{{ item.date }}</p>
+          <h2>{{ post.title }}</h2>
+          <p>{{ post.date }}</p>
         </ion-item>
 
-        <img src="{{ item.img }}">
+        <img src="{{ post.img }}">
 
         <ion-card-content>
-          <p>{{ item.description }}</p>
+          <p>{{ post.description }}</p>
         </ion-card-content>
 
         <ion-row>
           <ion-col>
-            <button ion-button icon-start clear small (click)="addToFavorites($event, item)">
-              <ion-icon name="{{ icon }}"></ion-icon>
+            <button ion-button icon-start clear small (click)="addToFavorites($event, post)">
+              <ion-icon *ngIf="post.isFavorite" name="heart"></ion-icon>
+              <ion-icon *ngIf="!post.isFavorite" name="heart-outline"></ion-icon>
             </button>
           </ion-col>
           <ion-col>
-            <button ion-button icon-start clear small>
+            <button ion-button icon-start clear small (click)="openModal()">
               <ion-icon name="text"></ion-icon>
               <div>4 Comments</div>
             </button>
@@ -74,7 +76,8 @@
         </ion-row>
 
       </ion-card>
-
     </ion-list>
   </div>
+
+
 </ion-content>
