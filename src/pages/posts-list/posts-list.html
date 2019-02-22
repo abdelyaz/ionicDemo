@@ -59,9 +59,12 @@
             </button>
           </ion-col>
           <ion-col>
-            <button ion-button icon-start clear small (click)="openModal()">
+            <button class="comment-btn" ion-button icon-start clear small *ngIf="post.comments" (click)="openComments(post)">
               <ion-icon name="text"></ion-icon>
-              <div>4 Comments</div>
+              <div class="comment-btn_comment">
+                <span>{{ post.comments.length }}</span>
+                Comment<div *ngIf="post.comments.length !== 1">s</div>
+              </div>
             </button>
           </ion-col>
           <ion-col align-self-center text-center>

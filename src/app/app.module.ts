@@ -49,12 +49,12 @@ import { CommentPage } from "../pages/comment/comment";
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    // MyApp,
-    // HomePage,
-    // ListPage,
-    // AboutPage,
-    // ContactPage,
-    // LoginPage,
+    MyApp,
+    HomePage,
+    ListPage,
+    AboutPage,
+    ContactPage,
+    LoginPage,
     TutoPage,
     CommentPage,
     PostsListPage

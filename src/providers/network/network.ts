@@ -21,4 +21,9 @@ export class NetworkProvider {
     const url = ENV.baseUrl + endpoint;
     return this.http.post(url, data).toPromise();
   }
+
+  public put(endpoint: string, data: any) {
+    const url = ENV.baseUrl + endpoint;
+    return this.http.put(url, data).toPromise();
+  }
 }

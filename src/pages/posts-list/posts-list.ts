@@ -121,6 +121,7 @@ export class PostsListPage {
     // Clean searchbar
     this.cleanInputSearchbar = "";
 
+    // Refresh Posts
     this.postProvider
       .getPosts()
       .then(posts => {
@@ -168,8 +169,10 @@ export class PostsListPage {
   }
 
   // Methode to open Comments in modal.
-  public openModal() {
-    let profileModal = this.modalCtrl.create(CommentPage);
-    profileModal.present();
+  public openComments(post: Post) {
+    let commentsModal = this.modalCtrl.create(CommentPage, {
+      postData: post
+    });
+    commentsModal.present();
   }
 }

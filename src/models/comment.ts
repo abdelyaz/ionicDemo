@@ -1,6 +1,7 @@
 export class Comment {
   public _id: number = null;
   public _author: string = null;
+  public _avatar: string = null;
   public _comment: string = null;
   public _date_time: string = null;
 
@@ -34,6 +35,22 @@ export class Comment {
    */
   public get date_time(): string {
     return this._date_time;
+  }
+
+  /**
+   * Getter avatar
+   * @return {string }
+   */
+  public get avatar(): string {
+    return this._avatar;
+  }
+
+  /**
+   * Setter avatar
+   * @param {string } value
+   */
+  public set avatar(value: string) {
+    this._avatar = value;
   }
 
   /**

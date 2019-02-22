@@ -1,6 +1,6 @@
 import * as moment from "moment";
 import { Category } from "./category";
-import { Comment } from "./coment";
+import { Comment } from "./comment";
 
 export class Post {
   public _id: number = null;

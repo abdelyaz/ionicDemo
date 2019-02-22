@@ -6,10 +6,51 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>comment</ion-title>
+    <ion-title>Comments</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="closeComments()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
 
+  <div text-center *ngIf="arrayOfComments.length === 0">
+    <ion-note>
+      No comment added yet
+    </ion-note>
+  </div>
+
+  <div *ngIf="arrayOfComments.length > 0">
+    <ion-item *ngFor="let comment of arrayOfComments">
+      <ion-avatar item-start>
+        <img src="{{ comment.avatar }}">
+      </ion-avatar>
+      <div class="head-comment">
+        <h2>{{ comment.author }}</h2>
+        <ion-note>
+          {{ comment.date_time }}
+        </ion-note>
+      </div>
+      <p>{{ comment.comment }}</p>
+    </ion-item>
+  </div>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="/assets/imgs/avatars/user3.png">
+      </ion-avatar>
+
+      <ion-input placeholder="Write your comment..." [(ngModel)]="comment"></ion-input>
+      <button ion-button round item-right (click)="addComment()" [disabled]='!comment'>
+        <ion-icon name="send"></ion-icon>
+      </button>
+    </ion-item>
+
+  </ion-toolbar>
+</ion-footer>

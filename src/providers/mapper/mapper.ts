@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Post } from "../../models/post";
 import { Category } from "../../models/category";
-import { Comment } from "../../models/coment";
+import { Comment } from "../../models/comment";
 
 /*
   Generated class for the MapperProvider provider.
@@ -87,6 +87,7 @@ export class MapperProvider {
 
       comment.id = commentJson["id"] ? commentJson["id"] : null;
       comment.author = commentJson["author"] ? commentJson["author"] : null;
+      comment.avatar = commentJson["avatar"] ? commentJson["avatar"] : null;
       comment.comment = commentJson["comment"] ? commentJson["comment"] : null;
       comment.date_time = commentJson["date_time"]
         ? commentJson["date_time"]

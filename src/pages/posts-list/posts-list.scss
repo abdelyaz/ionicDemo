@@ -1,13 +1,24 @@
 page-posts-list {
-  //   .toolbar-content {
-  //     position: relative;
-  //   }
   ion-fab {
     top: 0;
+
     ion-fab-list {
       width: calc(100vw - 83px);
     }
   }
+
+  .comment-btn {
+    span {
+      margin-right: 5px;
+    }
+
+    &_comment {
+      display: flex;
+      flex-wrap: nowrap;
+
+    }
+  }
+
   .note-md {
     color: #545454;
   }
