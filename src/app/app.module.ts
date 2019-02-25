@@ -27,6 +27,7 @@ import { CategoryProvider } from "../providers/category/category";
 /** Components */
 import { ComponentsModule } from "../components/components.module";
 import { CommentPage } from "../pages/comment/comment";
+import { FavoritesPage } from "../pages/favorites/favorites";
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { CommentPage } from "../pages/comment/comment";
     LoginPage,
     TutoPage,
     PostsListPage,
-    CommentPage
+    CommentPage,
+    FavoritesPage
   ],
   imports: [
     CommonModule,
@@ -56,8 +58,9 @@ import { CommentPage } from "../pages/comment/comment";
     ContactPage,
     LoginPage,
     TutoPage,
+    PostsListPage,
     CommentPage,
-    PostsListPage
+    FavoritesPage
   ],
   providers: [
     StatusBar,

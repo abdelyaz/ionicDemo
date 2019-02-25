@@ -27,18 +27,20 @@ export class MapperProvider {
     if (postJson) {
       const post = new Post();
 
-      post.id = postJson["id"] ? postJson["id"] : null;
-      post.author = postJson["author"] ? postJson["author"] : null;
-      post.category = postJson["category"] ? postJson["category"] : null;
-      post.isFavorite = postJson["isFavorite"] ? postJson["isFavorite"] : false;
-      post.description = postJson["description"]
+      post.$id = postJson["id"] ? postJson["id"] : null;
+      post.$author = postJson["author"] ? postJson["author"] : null;
+      post.$category = postJson["category"] ? postJson["category"] : null;
+      post.$isFavorite = postJson["isFavorite"]
+        ? postJson["isFavorite"]
+        : false;
+      post.$description = postJson["description"]
         ? postJson["description"]
         : null;
-      post.img = postJson["img"] ? postJson["img"] : null;
-      post.title = postJson["title"] ? postJson["title"] : null;
-      post.avatar = postJson["avatar"] ? postJson["avatar"] : null;
-      post.date = postJson["date"] ? postJson["date"] : null;
-      post.comments = postJson["comments"]
+      post.$img = postJson["img"] ? postJson["img"] : null;
+      post.$title = postJson["title"] ? postJson["title"] : null;
+      post.$avatar = postJson["avatar"] ? postJson["avatar"] : null;
+      post.$date = postJson["date"] ? postJson["date"] : null;
+      post.$comments = postJson["comments"]
         ? this._mapJsonToComments(postJson["comments"])
         : null;
 
@@ -62,8 +64,8 @@ export class MapperProvider {
     if (categoryJson) {
       const category = new Category();
 
-      category.id = categoryJson["id"] ? categoryJson["id"] : null;
-      category.title = categoryJson["title"] ? categoryJson["title"] : null;
+      category.$id = categoryJson["id"] ? categoryJson["id"] : null;
+      category.$title = categoryJson["title"] ? categoryJson["title"] : null;
 
       return category;
     } else {
@@ -85,11 +87,11 @@ export class MapperProvider {
     if (commentJson) {
       const comment = new Comment();
 
-      comment.id = commentJson["id"] ? commentJson["id"] : null;
-      comment.author = commentJson["author"] ? commentJson["author"] : null;
-      comment.avatar = commentJson["avatar"] ? commentJson["avatar"] : null;
-      comment.comment = commentJson["comment"] ? commentJson["comment"] : null;
-      comment.date_time = commentJson["date_time"]
+      comment.$id = commentJson["id"] ? commentJson["id"] : null;
+      comment.$author = commentJson["author"] ? commentJson["author"] : null;
+      comment.$avatar = commentJson["avatar"] ? commentJson["avatar"] : null;
+      comment.$comment = commentJson["comment"] ? commentJson["comment"] : null;
+      comment.$date_time = commentJson["date_time"]
         ? commentJson["date_time"]
         : null;
 

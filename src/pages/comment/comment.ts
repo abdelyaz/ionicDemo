@@ -7,7 +7,6 @@ import {
 } from "ionic-angular";
 
 import * as moment from "moment";
-import { Comment } from "../../models/comment";
 import { PostProvider } from "../../providers/post/post";
 
 /**
@@ -27,14 +26,14 @@ export class CommentPage {
   public arrayOfComments: Array<any> = this.postData["comments"];
   public comment: string = "";
 
-  public payload = new Comment();
-  // public payload = {
-  //   id: null,
-  //   author: null,
-  //   avatar: null,
-  //   comment: null,
-  //   date_time: null
-  // };
+  // public payload = new Comment();
+  public payload = {
+    id: null,
+    author: null,
+    avatar: null,
+    comment: null,
+    date_time: null
+  };
 
   constructor(
     public navCtrl: NavController,
@@ -53,11 +52,15 @@ export class CommentPage {
   // Methode to generate the ID for the new commment
   public generateId() {
     const IDs = [];
-    this.arrayOfComments.map(comment => {
-      IDs.push(comment.id);
-    });
-    const newId = Math.max(...IDs) + 1;
-    return newId;
+    if (this.arrayOfComments.length > 0) {
+      this.arrayOfComments.map(comment => {
+        IDs.push(comment.id);
+      });
+      const newId = Math.max(...IDs) + 1;
+      return newId;
+    } else {
+      return 1;
+    }
   }
 
   // Methode to add a comment.
@@ -71,17 +74,17 @@ export class CommentPage {
 
     this.arrayOfComments.push(this.payload);
     console.log("postData ::", this.postData.id);
+    console.log("postData ::", this.postData);
 
-    // this.postProvider
-    //   .editPost(this.postData, this.postData.id)
-    //   .then(post => {
-    //     // Clean input when comment added
-    //     this.comment = "";
-
-    //     console.log("Comment added to post and updated successfully", post);
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //   });
+    this.postProvider
+      .editPost(this.postData, this.postData.id)
+      .then(post => {
+        console.log("Comment added to post and updated successfully", post);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    // Clean input when comment added
+    this.comment = "";
   }
 }

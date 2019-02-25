@@ -31,9 +31,9 @@ export class PostsListPage {
   public listOfCategories: Array<Category> = null;
   public listOfPosts: Array<Post> = null;
   public allPosts = [];
-  public isLiked = false;
-  public icon: string = "heart-outline";
   public cleanInputSearchbar: string = "";
+  public favoritesIds = [];
+  public idsArray = [];
 
   constructor(
     public navCtrl: NavController,
@@ -138,17 +138,38 @@ export class PostsListPage {
   }
 
   // Methode to add Post to favorites.
-  // TODO: add a post to favorites and save it in local storage
-  public addToFavorites(e, post) {
-    // Reverse booleane value
-    this.isLiked = !this.isLiked;
-
+  public favoritesBtn(post) {
     // Customize message
     let msg: string;
-    if (this.isLiked) {
-      msg = "You liked the post";
+
+    if (!post.isFavorite) {
+      // Change isFavorite value
+      post.isFavorite = true;
+      this.postProvider
+        .editPost(post, post.id)
+        .then(data => {
+          this.favoritesIds.push(data.$id);
+          localStorage.setItem("PostsLiked", this.favoritesIds.toString());
+          msg = "You liked the post";
+          toast.present();
+        })
+        .catch(error => console.log(error));
     } else {
-      msg = "You disliked the post";
+      // Change isFavorite value
+      post.isFavorite = false;
+      this.postProvider
+        .editPost(post, post.id)
+        .then(data => {
+          this.idsArray = JSON.parse(
+            "[" + localStorage.getItem("PostsLiked") + "]"
+          );
+
+          this.favoritesIds = this.idsArray.filter(id => id != data.$id);
+          localStorage.setItem("PostsLiked", this.favoritesIds.toString());
+          msg = "You disliked the post";
+          toast.present();
+        })
+        .catch(error => console.log(error));
     }
 
     // Display a message each time the user hit the button
@@ -156,9 +177,6 @@ export class PostsListPage {
       message: msg,
       duration: 1500
     });
-    toast.present();
-
-    return this.isLiked;
   }
 
   // Methode to clean Searchbar input

@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Favorites posts</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div text-center *ngIf="!listOfFavorites">
+    <ion-note>
+      List of favorites posts is empty
+    </ion-note>
+  </div>
+  <ul *ngIf="listOfFavorites">
+    <li *ngFor="let post of listOfFavorites">
+      {{ post.title }}
+    </li>
+  </ul>
+
+</ion-content>
