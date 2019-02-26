@@ -9,22 +9,24 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <ion-slides pager *ngIf="listOfPosts">
-    <ion-slide *ngFor="let item of listOfPosts">
+    <ion-slide *ngFor="let post of listOfPosts">
       <ion-card>
         <ion-item>
           <ion-avatar item-start>
-            <img src="{{ item.avatar }}">
+            <img src="{{ post.avatar }}">
           </ion-avatar>
-          <h2>{{ item.title }}</h2>
-          <p>{{ item.date }}</p>
+          <h2>{{ post.title }}</h2>
+          <p>{{ post.date }}</p>
         </ion-item>
 
-        <img src="{{ item.img }}">
+        <img src="{{ post.img }}">
 
         <ion-card-content>
-          <p>{{ item.description }}</p>
+          <p>
+            {{ post.description.substr(0, 80) }} <ion-note (click)="openPost(post)">... Read more</ion-note>
+          </p>
         </ion-card-content>
 
       </ion-card>

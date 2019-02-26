@@ -12,6 +12,7 @@ import { Category } from "../../models/category";
 import { Post } from "../../models/post";
 import { PostProvider } from "../../providers/post/post";
 import { CommentPage } from "../comment/comment";
+import { PostDetailsPage } from "../post-details/post-details";
 
 /**
  * Generated class for the PostsListPage page.
@@ -26,13 +27,14 @@ import { CommentPage } from "../comment/comment";
   templateUrl: "posts-list.html"
 })
 export class PostsListPage {
-  public category: string = "lifestyle";
+  public category: string = "technology";
   public requestInProgress = false;
   public listOfCategories: Array<Category> = null;
   public listOfPosts: Array<Post> = null;
   public allPosts = [];
   public cleanInputSearchbar: string = "";
   public favoritesIds = [];
+  public favoritesPosts = [];
   public idsArray = [];
 
   constructor(
@@ -73,6 +75,8 @@ export class PostsListPage {
       .then(posts => {
         this.listOfPosts = posts;
         this.initializePosts();
+        // Filter favorite Posts.
+        this.isFavorite();
         this.requestInProgress = false;
       })
       .catch(error => {
@@ -126,12 +130,13 @@ export class PostsListPage {
       .getPosts()
       .then(posts => {
         this.allPosts = posts;
+        this.listOfPosts = this.allPosts;
+        this.isFavorite();
+
         refresher.complete();
         this.requestInProgress = false;
-        console.log("Refreshed successfully !!");
       })
       .catch(error => {
-        console.log("Error on refreshing !!");
         console.error(error);
         refresher.complete();
       });
@@ -139,51 +144,73 @@ export class PostsListPage {
 
   // Methode to add Post to favorites.
   public favoritesBtn(post) {
-    // Customize message
-    let msg: string;
-
     if (!post.isFavorite) {
       // Change isFavorite value
       post.isFavorite = true;
-      this.postProvider
-        .editPost(post, post.id)
-        .then(data => {
-          this.favoritesIds.push(data.$id);
-          localStorage.setItem("PostsLiked", this.favoritesIds.toString());
-          msg = "You liked the post";
-          toast.present();
-        })
-        .catch(error => console.log(error));
+
+      // Add favorites posts to localStorage
+      this.favoritesIds.push(post.$id);
+      this.store("PostsLiked", this.favoritesIds);
+
+      // Show toast
+      this.showToast("You liked the post");
     } else {
       // Change isFavorite value
       post.isFavorite = false;
-      this.postProvider
-        .editPost(post, post.id)
-        .then(data => {
-          this.idsArray = JSON.parse(
-            "[" + localStorage.getItem("PostsLiked") + "]"
-          );
 
-          this.favoritesIds = this.idsArray.filter(id => id != data.$id);
-          localStorage.setItem("PostsLiked", this.favoritesIds.toString());
-          msg = "You disliked the post";
-          toast.present();
-        })
-        .catch(error => console.log(error));
+      this.idsArray = JSON.parse(
+        "[" + localStorage.getItem("PostsLiked") + "]"
+      );
+
+      // Remove post from localStorage
+      this.favoritesIds = this.idsArray.filter(id => id != post.$id);
+      this.store("PostsLiked", this.favoritesIds);
+
+      // Show toast
+      this.showToast("You disliked the post");
     }
+  }
 
+  // Methode filter Liked posts using localStorage.
+  public isFavorite() {
+    if (localStorage.getItem("PostsLiked")) {
+      this.favoritesPosts = JSON.parse(
+        "[" + localStorage.getItem("PostsLiked") + "]"
+      );
+      if (this.listOfPosts.length > 0) {
+        this.listOfPosts.map(post => {
+          this.favoritesPosts.map(id => {
+            if (post.$id === id) {
+              post.isFavorite = true;
+            }
+          });
+        });
+      }
+    }
+    this.favoritesIds = this.favoritesPosts;
+  }
+
+  // Methode to clean Searchbar input.
+  public cleanSearch() {
+    this.cleanInputSearchbar = "";
+    this.initializePosts();
+  }
+
+  // Methode storing in localStorage.
+  public store(key: string, value: any) {
+    if (key && value) {
+      localStorage.setItem(key, value.toString());
+    }
+  }
+
+  // Methode display a Toast.
+  public showToast(msg: string) {
     // Display a message each time the user hit the button
-    const toast = this.toastCtrl.create({
+    let toast = this.toastCtrl.create({
       message: msg,
       duration: 1500
     });
-  }
-
-  // Methode to clean Searchbar input
-  public cleanSearch() {
-    console.log("clean this shit !");
-    this.cleanInputSearchbar = "";
-    this.initializePosts();
+    toast.present();
   }
 
   // Methode to open Comments in modal.
@@ -192,5 +219,13 @@ export class PostsListPage {
       postData: post
     });
     commentsModal.present();
+  }
+
+  // Methode to open the post in modal
+  public openPost(post) {
+    let postsModal = this.modalCtrl.create(PostDetailsPage, {
+      postData: post
+    });
+    postsModal.present();
   }
 }

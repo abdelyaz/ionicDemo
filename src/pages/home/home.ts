@@ -1,7 +1,8 @@
 import { Component } from "@angular/core";
-import { NavController } from "ionic-angular";
+import { NavController, ModalController } from "ionic-angular";
 import { Post } from "../../models/post";
 import { PostProvider } from "../../providers/post/post";
+import { PostDetailsPage } from "../post-details/post-details";
 
 @Component({
   selector: "page-home",
@@ -13,7 +14,8 @@ export class HomePage {
 
   constructor(
     public navCtrl: NavController,
-    public postProvider: PostProvider
+    public postProvider: PostProvider,
+    public modalCtrl: ModalController
   ) {}
   ionViewDidLoad() {
     this.getListOfPosts();
@@ -30,5 +32,13 @@ export class HomePage {
         console.log("Error ::", error);
         this.requestInProgress = false;
       });
+  }
+
+  // Methode to open the post in modal
+  public openPost(post) {
+    let postsModal = this.modalCtrl.create(PostDetailsPage, {
+      postData: post
+    });
+    postsModal.present();
   }
 }

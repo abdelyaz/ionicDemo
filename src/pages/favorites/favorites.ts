@@ -1,7 +1,14 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  ModalController,
+  ToastController
+} from "ionic-angular";
 import { Post } from "../../models/post";
 import { PostProvider } from "../../providers/post/post";
+import { PostDetailsPage } from "../post-details/post-details";
 
 /**
  * Generated class for the FavoritesPage page.
@@ -24,7 +31,9 @@ export class FavoritesPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public postProvider: PostProvider
+    public postProvider: PostProvider,
+    public modalCtrl: ModalController,
+    public toastCtrl: ToastController
   ) {}
 
   ionViewDidLoad() {
@@ -53,16 +62,41 @@ export class FavoritesPage {
       });
   }
 
+  // Methode to get the favorite posts
   public favoritePosts() {
     if (this.listOfPosts) {
       this.listOfPosts.map(post => {
         this.postsLiked.map(id => {
           if (post.$id === id) {
-            console.log(post);
+            post.$isFavorite = true;
             this.listOfFavorites.push(post);
           }
         });
       });
     }
+  }
+
+  // Methode to open the post in modal
+  public openPost(post) {
+    let postsModal = this.modalCtrl.create(PostDetailsPage, {
+      postData: post
+    });
+    postsModal.present();
+  }
+
+  // Methode to delete post from favorite
+  public deleteFavorite(id) {
+    // Delete the post from the view.
+    this.listOfFavorites = this.listOfFavorites.filter(fav => fav.id != id);
+
+    // Delete post's id from localStorage.
+    this.postsLiked = this.postsLiked.filter(favId => favId != id);
+    localStorage.setItem("PostsLiked", this.postsLiked.toString());
+    // Display a message each time the user hit the button
+    const toast = this.toastCtrl.create({
+      message: "Post deleted from favorites",
+      duration: 1500
+    });
+    toast.present();
   }
 }

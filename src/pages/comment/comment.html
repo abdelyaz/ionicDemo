@@ -1,9 +1,3 @@
-<!--
-  Generated template for the CommentPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
   <ion-navbar>
     <ion-title>Comments</ion-title>
@@ -24,25 +18,25 @@
     <ion-item *ngFor="let comment of arrayOfComments">
       <ion-avatar item-start>
         <img src="{{ comment.avatar }}"></ion-avatar>
-        <div class="head-comment">
-          <h2>
-            {{ comment.author }}</h2>
-          <ion-note>
-            {{ comment.date_time }}
-          </ion-note>
-        </div>
-        <p>
-          {{ comment.comment }}</p>
-      </ion-item>
-    </div>
-    <ion-toolbar>
-      <ion-item margin-right>
-        <ion-avatar item-start>
-          <img src="/assets/imgs/avatars/user3.png"></ion-avatar>
-          <ion-input [(ngModel)]="comment" placeholder="Write your comment..."></ion-input>
-          <button (click)="addComment()" [disabled]='!comment' ion-button item-right round>
-            <ion-icon name="send"></ion-icon>
-          </button>
-        </ion-item>
-      </ion-toolbar>
-    </ion-content>
+      <div class="head-comment">
+        <h2>
+          {{ comment.author }}</h2>
+        <ion-note>
+          {{ comment.date_time }}
+        </ion-note>
+      </div>
+      <p>
+        {{ comment.comment }}</p>
+    </ion-item>
+  </div>
+  <ion-toolbar>
+    <ion-item margin-right>
+      <ion-avatar item-start>
+        <img src="/assets/imgs/avatars/user3.png"></ion-avatar>
+      <ion-input [(ngModel)]="comment" placeholder="Write your comment..."></ion-input>
+      <button (click)="addComment()" [disabled]='!comment' ion-button item-right round>
+        <ion-icon name="send"></ion-icon>
+      </button>
+    </ion-item>
+  </ion-toolbar>
+</ion-content>

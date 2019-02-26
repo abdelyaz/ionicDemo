@@ -48,7 +48,10 @@
         <img src="{{ post.img }}">
 
         <ion-card-content>
-          <p>{{ post.description }}</p>
+          <p>
+            {{ post.description.substr(0, 80) }} <ion-note (click)="openPost(post)">... Read more</ion-note>
+          </p>
+
         </ion-card-content>
 
         <ion-row>

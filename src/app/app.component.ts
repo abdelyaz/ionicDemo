@@ -15,7 +15,7 @@ import { FavoritesPage } from "../pages/favorites/favorites";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = PostsListPage;
+  rootPage: any = LoginPage;
   requestInProgress = false;
   pages: Array<{ title: string; component: any }>;
 
@@ -32,8 +32,8 @@ export class MyApp {
     this.pages = [
       { title: "Home", component: HomePage },
       { title: "List of posts", component: PostsListPage },
-      { title: "Contact", component: ContactPage },
-      { title: "Favorites Posts", component: FavoritesPage }
+      { title: "Favorites Posts", component: FavoritesPage },
+      { title: "Contact", component: ContactPage }
     ];
   }
 

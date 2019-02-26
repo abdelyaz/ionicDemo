@@ -16,6 +16,9 @@ import { LoginPage } from "../pages/login/login";
 import { ListPage } from "../pages/list/list";
 import { TutoPage } from "../pages/tuto/tuto";
 import { PostsListPage } from "../pages/posts-list/posts-list";
+import { CommentPage } from "../pages/comment/comment";
+import { FavoritesPage } from "../pages/favorites/favorites";
+import { PostDetailsPage } from "../pages/post-details/post-details";
 
 /** Providers */
 import { NetworkProvider } from "../providers/network/network";
@@ -26,8 +29,6 @@ import { CategoryProvider } from "../providers/category/category";
 
 /** Components */
 import { ComponentsModule } from "../components/components.module";
-import { CommentPage } from "../pages/comment/comment";
-import { FavoritesPage } from "../pages/favorites/favorites";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { FavoritesPage } from "../pages/favorites/favorites";
     TutoPage,
     PostsListPage,
     CommentPage,
-    FavoritesPage
+    FavoritesPage,
+    PostDetailsPage
   ],
   imports: [
     CommonModule,
@@ -60,7 +62,8 @@ import { FavoritesPage } from "../pages/favorites/favorites";
     TutoPage,
     PostsListPage,
     CommentPage,
-    FavoritesPage
+    FavoritesPage,
+    PostDetailsPage
   ],
   providers: [
     StatusBar,
