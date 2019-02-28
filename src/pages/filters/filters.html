@@ -1,0 +1,16 @@
+<ion-list *ngIf="categories" no-margin>
+  <!-- <ion-item>
+    <ion-label>Last added</ion-label>
+    <ion-checkbox></ion-checkbox>
+  </ion-item>
+  <ion-item>
+    <ion-label>Title</ion-label>
+    <ion-checkbox></ion-checkbox>
+  </ion-item> -->
+  <ion-item *ngFor="let cate of categories">
+    <ion-label>
+      {{ cate.title }}
+    </ion-label>
+    <ion-checkbox (click)="changecategory(cate)" [(ngModel)]="cate.isChecked"></ion-checkbox>
+  </ion-item>
+</ion-list>

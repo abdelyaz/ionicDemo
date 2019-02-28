@@ -17,7 +17,8 @@
   <div *ngIf="arrayOfComments.length > 0" class="list-comments" padding-right>
     <ion-item *ngFor="let comment of arrayOfComments">
       <ion-avatar item-start>
-        <img src="{{ comment.avatar }}"></ion-avatar>
+        <img src="{{ comment.avatar }}">
+      </ion-avatar>
       <div class="head-comment">
         <h2>
           {{ comment.author }}</h2>
@@ -26,7 +27,8 @@
         </ion-note>
       </div>
       <p>
-        {{ comment.comment }}</p>
+        {{ comment.comment }}
+      </p>
     </ion-item>
   </div>
   <ion-toolbar>

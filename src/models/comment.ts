@@ -1,9 +1,27 @@
+import * as moment from "moment";
+
 export class Comment {
   public id: number = null;
   public author: string = null;
   public avatar: string = null;
   public comment: string = null;
-  public date_time: string = null;
+  public date_time: moment.Moment = null;
+
+  /**
+   * Getter $date_time
+   * @return {moment.Moment }
+   */
+  public get $date_time(): moment.Moment {
+    return this.date_time;
+  }
+
+  /**
+   * Setter $date_time
+   * @param {moment.Moment } value
+   */
+  public set $date_time(value: moment.Moment) {
+    this.date_time = value;
+  }
 
   /**
    * Getter $id
@@ -38,14 +56,6 @@ export class Comment {
   }
 
   /**
-   * Getter $date_time
-   * @return {string }
-   */
-  public get $date_time(): string {
-    return this.date_time;
-  }
-
-  /**
    * Setter $id
    * @param {number } value
    */
@@ -75,13 +85,5 @@ export class Comment {
    */
   public set $comment(value: string) {
     this.comment = value;
-  }
-
-  /**
-   * Setter $date_time
-   * @param {string } value
-   */
-  public set $date_time(value: string) {
-    this.date_time = value;
   }
 }

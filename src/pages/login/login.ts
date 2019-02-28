@@ -22,6 +22,8 @@ import { HomePage } from "../home/home";
   templateUrl: "login.html"
 })
 export class LoginPage {
+  public tutoIsSeen = localStorage.getItem("tuto_seen") === "seen";
+
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
@@ -41,7 +43,11 @@ export class LoginPage {
       .then(data => {
         if (data) {
           this.navCtrl.setRoot(HomePage);
-          this.openTuto();
+
+          // Open Tutorial page if it's not already seen.
+          if (!this.tutoIsSeen) {
+            this.openTuto();
+          }
         }
       })
       .catch(error => console.log("Authenticate error", error));

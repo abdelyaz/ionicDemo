@@ -3,16 +3,47 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Contact</ion-title>
+    <ion-title>Contact us</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
-    <ion-list-header>Follow us on Twitter</ion-list-header>
-    <ion-item>
-      <ion-icon name="ionic" item-start></ion-icon>
-      @ionicframework
-    </ion-item>
-  </ion-list>
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <form [formGroup]="ContactForm" (ngSubmit)="contactForm()">
+          <ion-item no-padding>
+            <ion-input placeholder="* First name" type="text" formControlName="firstName"></ion-input>
+          </ion-item>
+          <ion-item no-padding>
+            <ion-input placeholder="* Last name" type="text" formControlName="lastName"></ion-input>
+          </ion-item>
+          <ion-item no-padding>
+            <ion-input placeholder="* Email" type="text" formControlName="email"></ion-input>
+          </ion-item>
+          <ion-item no-padding>
+            <ion-textarea placeholder="* Message" formControlName="message"></ion-textarea>
+          </ion-item>
+          <ion-item margin-bottom no-padding>
+            <ion-checkbox formControlName="terms"></ion-checkbox>
+            <ion-label>
+              <ion-note>
+                I accept the <a>terms and conditions</a>
+              </ion-note>
+            </ion-label>
+          </ion-item>
+          <ion-row>
+            <ion-col col-6>
+              <ion-note>
+                (*) Required information
+              </ion-note>
+            </ion-col>
+            <ion-col col-6>
+              <button ion-button round full type="submit" [disabled]="!ContactForm.valid && !requestInProgress">Send</button>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

@@ -16,7 +16,9 @@ import { Component } from "@angular/core";
 export class TutoPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
-  ionViewDidLoad() {}
+  ionViewDidLoad() {
+    localStorage.setItem("tuto_seen", "seen");
+  }
   public skipTuto() {
     this.navCtrl.pop();
   }

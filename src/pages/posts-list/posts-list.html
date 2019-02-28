@@ -37,19 +37,19 @@
     <ion-list *ngSwitchCase="cat.title.toLowerCase()">
       <ion-card *ngFor="let post of getPostWithCategory(cat.title)">
 
-        <ion-item>
-          <ion-avatar item-start>
-            <img src="{{ post.avatar }}">
-          </ion-avatar>
-          <h2>{{ post.title }}</h2>
-          <p>{{ post.date }}</p>
-        </ion-item>
 
-        <img src="{{ post.img }}">
+        <ion-card-content no-padding (click)="openPost(post)">
+          <ion-item>
+            <ion-avatar item-start>
+              <img src="{{ post.avatar }}">
+            </ion-avatar>
+            <h2>{{ post.title }}</h2>
+            <p>{{ post.date }}</p>
+          </ion-item>
 
-        <ion-card-content>
-          <p>
-            {{ post.description.substr(0, 80) }} <ion-note (click)="openPost(post)">... Read more</ion-note>
+          <img src="{{ post.img }}">
+          <p padding>
+            {{ post.description.substr(0, 80) }} <ion-note>... Read more</ion-note>
           </p>
 
         </ion-card-content>

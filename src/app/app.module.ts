@@ -6,6 +6,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { IonicModule, IonicApp, IonicErrorHandler } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
+import { PubSubModule } from "angular7-pubsub";
 
 /** Pages */
 import { MyApp } from "./app.component";
@@ -29,6 +30,7 @@ import { CategoryProvider } from "../providers/category/category";
 
 /** Components */
 import { ComponentsModule } from "../components/components.module";
+import { FiltersPage } from "../pages/filters/filters";
 
 @NgModule({
   declarations: [
@@ -42,14 +44,16 @@ import { ComponentsModule } from "../components/components.module";
     PostsListPage,
     CommentPage,
     FavoritesPage,
-    PostDetailsPage
+    PostDetailsPage,
+    FiltersPage
   ],
   imports: [
     CommonModule,
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
-    ComponentsModule
+    ComponentsModule,
+    PubSubModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -63,7 +67,8 @@ import { ComponentsModule } from "../components/components.module";
     PostsListPage,
     CommentPage,
     FavoritesPage,
-    PostDetailsPage
+    PostDetailsPage,
+    FiltersPage
   ],
   providers: [
     StatusBar,

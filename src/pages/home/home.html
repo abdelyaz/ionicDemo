@@ -6,31 +6,30 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Home</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="openFilter($event)">
+        <ion-icon name="options"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-slides pager *ngIf="listOfPosts">
-    <ion-slide *ngFor="let post of listOfPosts">
-      <ion-card>
-        <ion-item>
-          <ion-avatar item-start>
-            <img src="{{ post.avatar }}">
-          </ion-avatar>
-          <h2>{{ post.title }}</h2>
-          <p>{{ post.date }}</p>
-        </ion-item>
 
+  <ion-card ion-grid *ngIf="fakeListOfPosts">
+    <ion-row *ngFor="let post of fakeListOfPosts">
+      <ion-col col-4>
         <img src="{{ post.img }}">
-
-        <ion-card-content>
-          <p>
-            {{ post.description.substr(0, 80) }} <ion-note (click)="openPost(post)">... Read more</ion-note>
-          </p>
-        </ion-card-content>
-
-      </ion-card>
-    </ion-slide>
-  </ion-slides>
+      </ion-col>
+      <ion-col col-8 (click)="openPost(post)">
+        <h4><b>{{ post.title }}</b></h4>
+        <ion-note>{{ post.author }}</ion-note>
+        <p>{{ post.description.substr(0, 80) }}... <ion-note>Read more</ion-note></p>
+      </ion-col>
+      <ion-col col-12>
+        <hr>
+      </ion-col>
+    </ion-row>
+  </ion-card>
 
 </ion-content>
