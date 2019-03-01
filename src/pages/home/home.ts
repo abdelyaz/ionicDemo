@@ -2,7 +2,8 @@ import { Component } from "@angular/core";
 import {
   NavController,
   ModalController,
-  PopoverController
+  PopoverController,
+  Events
 } from "ionic-angular";
 import { Post } from "../../models/post";
 import { PostProvider } from "../../providers/post/post";
@@ -10,7 +11,6 @@ import { PostDetailsPage } from "../post-details/post-details";
 import { FiltersPage } from "../filters/filters";
 import { CategoryProvider } from "../../providers/category/category";
 import { Category } from "../../models/category";
-import { PubSubService } from "angular7-pubsub";
 
 @Component({
   selector: "page-home",
@@ -28,13 +28,13 @@ export class HomePage {
     public modalCtrl: ModalController,
     public popoverCtrl: PopoverController,
     public categoryProvider: CategoryProvider,
-    public pubsubSvc: PubSubService
+    public events: Events
   ) {}
 
   ionViewDidLoad() {
     this.getListOfPosts();
     this.getListOfCategories();
-    this.pubsubSvc.$sub("filters:changed", categories => {
+    this.events.subscribe("filters:changed", categories => {
       this.buildArray(categories);
     });
   }

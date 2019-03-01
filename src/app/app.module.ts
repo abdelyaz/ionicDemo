@@ -2,11 +2,14 @@
 import { CommonModule } from "@angular/common";
 import { NgModule, ErrorHandler } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HttpClient } from "@angular/common/http";
 import { IonicModule, IonicApp, IonicErrorHandler } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
-import { PubSubModule } from "angular7-pubsub";
+
+import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { TranslatePoHttpLoader } from "@biesbjerg/ngx-translate-po-http-loader";
 
 /** Pages */
 import { MyApp } from "./app.component";
@@ -20,6 +23,8 @@ import { PostsListPage } from "../pages/posts-list/posts-list";
 import { CommentPage } from "../pages/comment/comment";
 import { FavoritesPage } from "../pages/favorites/favorites";
 import { PostDetailsPage } from "../pages/post-details/post-details";
+import { FiltersPage } from "../pages/filters/filters";
+import { CareerPage } from "../pages/career/career";
 
 /** Providers */
 import { NetworkProvider } from "../providers/network/network";
@@ -29,8 +34,16 @@ import { PostProvider } from "../providers/post/post";
 import { CategoryProvider } from "../providers/category/category";
 
 /** Components */
-import { ComponentsModule } from "../components/components.module";
-import { FiltersPage } from "../pages/filters/filters";
+import { LoadingComponent } from "../components/loading/loading";
+import { FiltersComponent } from "../components/filters/filters";
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
+}
+
+// export function createTranslateLoader(http: HttpClient) {
+//   return new TranslatePoHttpLoader(http, "./assets/i18n/", ".po");
+// }
 
 @NgModule({
   declarations: [
@@ -45,15 +58,23 @@ import { FiltersPage } from "../pages/filters/filters";
     CommentPage,
     FavoritesPage,
     PostDetailsPage,
-    FiltersPage
+    FiltersPage,
+    CareerPage,
+    LoadingComponent,
+    FiltersComponent
   ],
   imports: [
     CommonModule,
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
-    ComponentsModule,
-    PubSubModule.forRoot()
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient]
+      }
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -68,7 +89,10 @@ import { FiltersPage } from "../pages/filters/filters";
     CommentPage,
     FavoritesPage,
     PostDetailsPage,
-    FiltersPage
+    FiltersPage,
+    CareerPage,
+    LoadingComponent,
+    FiltersComponent
   ],
   providers: [
     StatusBar,

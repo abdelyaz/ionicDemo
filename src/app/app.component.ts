@@ -8,6 +8,7 @@ import { HomePage } from "../pages/home/home";
 import { ContactPage } from "../pages/contact/contact";
 import { PostsListPage } from "../pages/posts-list/posts-list";
 import { FavoritesPage } from "../pages/favorites/favorites";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   templateUrl: "app.html"
@@ -15,16 +16,23 @@ import { FavoritesPage } from "../pages/favorites/favorites";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = LoginPage;
+  rootPage: any = HomePage;
   requestInProgress = false;
   pages: Array<{ title: string; component: any }>;
 
   constructor(
     public platform: Platform,
     public statusBar: StatusBar,
-    public splashScreen: SplashScreen
+    public splashScreen: SplashScreen,
+    public translate: TranslateService
   ) {
-    this.requestInProgress = true;
+    translate.addLangs(["en", "fr", "es"]);
+
+    const browserLang = translate.getBrowserLang();
+
+    translate.setDefaultLang(browserLang);
+
+    console.log(browserLang);
 
     this.initializeApp();
 
@@ -58,5 +66,10 @@ export class MyApp {
     this.nav.setRoot(LoginPage);
     localStorage.removeItem("access_token");
     localStorage.removeItem("username");
+  }
+
+  public switchLanguage(language: string) {
+    console.log(language);
+    this.translate.use(language);
   }
 }

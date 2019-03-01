@@ -6,28 +6,31 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Home</ion-title>
-    <ion-buttons end>
+    <!-- <ion-buttons end>
       <button ion-button icon-only (click)="openFilter($event)">
         <ion-icon name="options"></ion-icon>
       </button>
-    </ion-buttons>
+    </ion-buttons> -->
   </ion-navbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-card ion-grid *ngIf="fakeListOfPosts">
+  <filters *ngIf="listOfCategories" [categories]="listOfCategories"></filters>
+
+  <ion-card ion-grid *ngIf="fakeListOfPosts" no-margin>
     <ion-row *ngFor="let post of fakeListOfPosts">
+      <ion-col col-12>
+        <hr>
+      </ion-col>
       <ion-col col-4>
         <img src="{{ post.img }}">
       </ion-col>
       <ion-col col-8 (click)="openPost(post)">
         <h4><b>{{ post.title }}</b></h4>
         <ion-note>{{ post.author }}</ion-note>
-        <p>{{ post.description.substr(0, 80) }}... <ion-note>Read more</ion-note></p>
-      </ion-col>
-      <ion-col col-12>
-        <hr>
+        <p>{{ post.description.substr(0, 80) }}... <ion-note>Read more</ion-note>
+        </p>
       </ion-col>
     </ion-row>
   </ion-card>

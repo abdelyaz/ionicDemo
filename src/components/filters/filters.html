@@ -1,0 +1,19 @@
+<!--
+<ion-slides *ngIf="categories">
+  <ion-slide *ngFor="let cat of categories">
+    <button full ion-button [outline]="!cat.isChecked" (click)="changecategory(cat)">
+      {{ cat.title }}
+    </button>
+  </ion-slide>
+</ion-slides>
+-->
+
+<ion-grid *ngIf="categories">
+  <ion-row>
+    <ion-col col *ngFor="let cat of categories">
+      <button block ion-button [outline]="!cat.isChecked" (click)="changecategory(cat)">
+        {{ cat.title }}
+      </button>
+    </ion-col>
+  </ion-row>
+</ion-grid>

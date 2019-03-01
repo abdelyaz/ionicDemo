@@ -1,7 +1,11 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController, ViewController } from "ionic-angular";
+import {
+  IonicPage,
+  NavController,
+  ViewController,
+  Events
+} from "ionic-angular";
 import { Category } from "../../models/category";
-import { PubSubService } from "angular7-pubsub";
 
 /**
  * Generated class for the FiltersPage page.
@@ -21,7 +25,7 @@ export class FiltersPage {
   constructor(
     public navCtrl: NavController,
     public viewCtrl: ViewController,
-    public pubsubSvc: PubSubService
+    public events: Events
   ) {}
 
   ionViewDidLoad() {
@@ -57,6 +61,6 @@ export class FiltersPage {
     });
 
     // Publish event to publish selected filters
-    this.pubsubSvc.$pub("filters:changed", categories);
+    this.events.publish("filters:changed", categories);
   }
 }

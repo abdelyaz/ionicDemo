@@ -34,7 +34,8 @@
   <ion-toolbar>
     <ion-item margin-right>
       <ion-avatar item-start>
-        <img src="/assets/imgs/avatars/user3.png"></ion-avatar>
+        <img src="/assets/imgs/avatars/user3.png">
+      </ion-avatar>
       <ion-input [(ngModel)]="comment" placeholder="Write your comment..."></ion-input>
       <button (click)="addComment()" [disabled]='!comment' ion-button item-right round>
         <ion-icon name="send"></ion-icon>
